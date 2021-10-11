@@ -2,11 +2,12 @@ package com.example.controllers;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +61,39 @@ public class VehiclesController {
 			Vehicle vehicle = new Vehicle(manufacturer, model, year, consumption);
 			this.catalog.save(vehicle);
 			
+	}
+	
+	@PutMapping("/vehicles")
+	public void updateVehicle(@RequestParam(value = "id") long id,
+			@RequestParam(value = "manufacturer") String manufacturer, 
+			@RequestParam(value = "model") String model,
+			@RequestParam(value = "year") short year,
+			@RequestParam(value = "consumption") float consumption) {
+			
+			Optional<Vehicle> result = this.catalog.findById(id);
+			
+			if(result.isPresent()) {
+				Vehicle vehicle = result.get();
+				
+				if(manufacturer != null)
+					vehicle.setManufacturer(manufacturer);
+				if(model != null)
+					vehicle.setModel(model);
+				if(year >= 1886 || year <= Year.now().getValue())
+					vehicle.setYear(year);
+				if(consumption > 0) {
+					vehicle.setConsumption(consumption);
+				}
+				
+				this.catalog.save(vehicle);
+			}else {
+				//Later version should return an error like 404 not found
+				System.out.println("No ID Found!");
+			}
+	}
+	
+	public void deleteVehicle(@RequestParam(value = "id") long id ) {
+			
+		this.catalog.deleteById(id);
 	}
 }
