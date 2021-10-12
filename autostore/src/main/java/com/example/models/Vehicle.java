@@ -1,5 +1,4 @@
-package com.example.persistence;
-
+package com.example.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.persistence.Vehicle;
-import com.example.persistence.VehicleCatalog;
+import com.example.models.Vehicle;
+import com.example.repositories.VehicleRepository;
 
 @SpringBootApplication
 @RestController
 public class VehiclesController {
 	
-	private VehicleCatalog catalog;
+	private VehicleRepository catalog;
 	
-	public VehiclesController(VehicleCatalog catalog) {
+	public VehiclesController(VehicleRepository catalog) {
 		this.catalog = catalog;
 	}
 	
