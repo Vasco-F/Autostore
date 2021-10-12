@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#Remove Database Instances
+sudo docker stop mysql-storage
+sudo docker rm mysql-storage
+
+#Stop and remove the java backend
+sudo docker stop autostore
+sudo docker rm autostore
+
+#Remove DB volume
+sudo docker volume rm mysql-storage
+
+# sudo docker volume create mysql-storage
+
+#Create network between containers
+sudo docker network create --driver bridge uphill-net
+
+sudo docker run --name mysql-storage --network uphill-net -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_PASSWORD=admin -d mysql:5.7.35
+
+cd autostore
+chmod +x ./mvnw
+./mvnw package -Dmaven.test.skip
+cd ..
+
+sudo docker build --tag autostore-backend-img .
+sudo docker run -p 8080:8080 --name autostore --network uphill-net autostore-backend-img

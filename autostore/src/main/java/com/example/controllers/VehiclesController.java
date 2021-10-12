@@ -4,7 +4,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,14 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.models.Vehicle;
 import com.example.repositories.VehicleRepository;
 
-@SpringBootApplication
 @RestController
 public class VehiclesController {
 	
+	@Autowired
 	private VehicleRepository catalog;
 	
-	public VehiclesController(VehicleRepository catalog) {
-		this.catalog = catalog;
+	// public VehiclesController(VehicleRepository catalog) {
+	// 	this.catalog = catalog;
+	// }
+
+	@GetMapping("/")
+	public String getTest(){
+		return "Service up and running!";
 	}
 	
 	@GetMapping("/vehicles")

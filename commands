@@ -1,0 +1,10 @@
+#Database
+
+sudo docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:5.7.35
+
+#Backend
+
+sudo docker stop autostore
+sudo docker rm autostore
+sudo docker build --tag autostore-backend-img .
+sudo docker run -p 8080:8080 --name autostore autostore-backend-img
