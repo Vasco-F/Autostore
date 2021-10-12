@@ -16,7 +16,11 @@ sudo docker volume rm mysql-storage
 #Create network between containers
 sudo docker network create --driver bridge uphill-net
 
-sudo docker run --name mysql-storage --network uphill-net -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_PASSWORD=admin -d mysql:5.7.35
+cd database
+sudo docker build --tag autostore-database-img .
+cd ..
+sudo docker run --name mysql-storage --network uphill-net -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_PASSWORD=admin -d autostore-database-img
+# sudo docker run --name mysql-storage --network uphill-net -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_PASSWORD=admin -d mysql:5.7.35
 
 cd autostore
 chmod +x ./mvnw
