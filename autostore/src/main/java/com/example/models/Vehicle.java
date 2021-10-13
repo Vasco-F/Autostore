@@ -20,6 +20,8 @@ public class Vehicle {
 	
 	private float consumption;
 	
+	public Vehicle(){}
+
 	public Vehicle(String manufacturer, String model, short year, float consumption) {
 		this.manufacturer = manufacturer;
 		this.model = model;
