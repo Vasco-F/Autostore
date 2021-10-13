@@ -13,8 +13,6 @@ services:
 
     mysql-storage:
         image: mysql:5.7.35
-        ports:
-            - "3306:3306"
         networks:
             - uphill-net
         environment:

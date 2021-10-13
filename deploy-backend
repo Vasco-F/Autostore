@@ -24,7 +24,7 @@
 
 cd autostore
 chmod +x ./mvnw
-./mvnw package -Dmaven.test.skip
+sudo ./mvnw package -Dmaven.test.skip
 cd ..
 
 sudo docker build --tag autostore-backend-img .
