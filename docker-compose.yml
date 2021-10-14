@@ -1,6 +1,6 @@
 version: "3"
 services:
-    autostore:
+    autostore-backend:
         image: autostore-backend-img
         ports:
             - "8080:8080"
@@ -21,7 +21,7 @@ services:
             - MYSQL_PASSWORD=admin
             - MYSQL_DATABASE=uphill
         volumes:
-            - "./database/scripts/startup.sql:/docker-entrypoint-initdb.d/init.sql"
+            - "./database/startup.sql:/docker-entrypoint-initdb.d/init.sql"
         
 networks:
     uphill-net:
