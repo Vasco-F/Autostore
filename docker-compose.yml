@@ -1,9 +1,25 @@
 version: "3"
 services:
-    autostore-backend:
-        image: autostore-backend-img
+    autostore-frontend:
         ports:
-            - "8080:8080"
+            - "3000:3000"
+        build:
+            context: frontend
+            dockerfile: Dockerfile
+        networks:
+            - uphill-net
+        depends_on:
+            - autostore-backend
+        links:
+            - autostore-backend
+
+
+    autostore-backend:
+        build:
+            context: backend
+            dockerfile: Dockerfile
+        ports:
+            - "8081:8080"
         networks:
             - uphill-net
         depends_on:

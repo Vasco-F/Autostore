@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>autostore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>autostore</name>
 	<description>UpHill Challange Backend for Automotive WebApp</description>
 	<properties>
