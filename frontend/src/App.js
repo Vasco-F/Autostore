@@ -1,38 +1,21 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import VehicleList from './VehicleList';
+import VehicleEdit from './VehicleEdit';
 
-import { Component } from "react";
-
-class App extends Component{
-  state = {
-    vehicles: []
-  };
-
-  async componentDidMount(){
-    fetch("/vehicles")
-      .then(response => response.json())
-      .then(data => this.setState({vehicles: data}));
-  }
-
-  render(){
-    const {vehicles} = this.state;
+class App extends Component {
+  render() {
     return (
-      <div className = "App">
-        <header className = "App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div className = "App-intro">
-            <h2>Vehicles</h2>
-            {vehicles.map(vehicle => 
-              <div key={vehicle.id}>
-                Manufacturer: {vehicle.manufacturer} | Model: {vehicle.model} | Year: {vehicle.year} | Consumption: {vehicle.consumption}
-              </div>
-                
-            )}
-          </div>
-        </header>
-      </div>
-    );
+        <Router>
+          <Switch>
+            <Route path='/' exact={true} component={Home}/>
+            <Route path='/vehicles' exact={true} component={VehicleList}/>
+            <Route path='/vehicles/:id' component={VehicleEdit}/>
+          </Switch>
+        </Router>
+    )
   }
 }
-
 export default App;
