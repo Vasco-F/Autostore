@@ -23,7 +23,7 @@ public class FileSystemRepository {
         return newFile.toAbsolutePath().toString();
     }   
     
-    public FileSystemResource findInFileSystem(String location){
+    public FileSystemResource find(String location){
         return new FileSystemResource(Paths.get(location));
     }
 }

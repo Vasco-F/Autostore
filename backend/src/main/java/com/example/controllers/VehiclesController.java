@@ -15,6 +15,7 @@ import com.example.repositories.ImageRepository;
 import com.example.repositories.VehicleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +65,22 @@ public class VehiclesController {
 			throw new VehicleNotFoundException(id);
 	}
 
-	@PostMapping("/vehicles/{id}/upload")
-	public Long getVehicle(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException {
+	@GetMapping(value = "/vehicles/{id}/image")
+	public FileSystemResource downloadVehiclePhoto(@PathVariable Long id) throws IOException {
+
+		Optional<Image> result = this.pathRepo.findById(id);
+
+		if(result.isPresent()){
+			Image file = result.get();
+			String path = file.getPath();
+			return this.fileRepo.find(path);
+		}else{
+			throw new VehicleNotFoundException(id);
+		}
+	}
+
+	@PostMapping("/vehicles/{id}/image")
+	public Long uploadVehiclePhoto(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException {
 
 		byte[] fileBytes = file.getBytes();
 		String fileName = file.getOriginalFilename();
