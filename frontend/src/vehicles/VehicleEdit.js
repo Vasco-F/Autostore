@@ -15,7 +15,8 @@ class VehicleEdit extends Component {
     constructor(props){
         super(props);
         this.state = {
-            item: this.emptyItem
+            item: this.emptyItem,
+            isEdit: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +38,11 @@ class VehicleEdit extends Component {
         this.setState({item});
     }
 
+    handleEditClick(){
+        const currentValue = {...this.state.isEdit};
+        this.setState({isEdit: !currentValue});
+    }
+
     async handleSubmit(event){
         event.preventDefault();
         const {item} = this.state;
@@ -50,11 +56,26 @@ class VehicleEdit extends Component {
             body: JSON.stringify(item),
         });
         this.props.history.push("/vehicles");
-    }
+    }  
 
     render(){
         const {item} = this.state;
         const title = <h2>{item.id ? "Edit Vehicle" : "Add Vehicle" }</h2>
+        const isAdd = item.id ? true : false;
+
+        console.log(isAdd)
+
+        let button;
+        if(isAdd || this.state.isEdit){
+            button = <FormGroup>
+                <Button color="primary" type="submit">Save</Button>{" "}
+                <Button color="secondary" tag={Link} to="/vehicles">Cancel</Button>
+            </FormGroup>;
+        }else{
+            button = <FormGroup>
+                <Button color="primary" onClick={this.handleEditClick}>Edit</Button>
+            </FormGroup>;
+        }
 
         return <div>
             <AppNavbar/>
@@ -81,10 +102,7 @@ class VehicleEdit extends Component {
                         <Input type="value" name="consumption" id="consumption" value={item.consumption || ""}
                             onChange={this.handleChange} autoComplete="consumption"/>
                     </FormGroup>
-                    <FormGroup>
-                        <Button color="primary" type="submit">Save</Button>{" "}
-                        <Button color="secondary" tag={Link} to="/vehicles">Cancel</Button>
-                    </FormGroup>
+                    {button}
                 </Form>
             </Container>
         </div>

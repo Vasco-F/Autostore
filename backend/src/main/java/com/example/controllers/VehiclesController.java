@@ -37,10 +37,6 @@ public class VehiclesController {
 
 	@Autowired
 	private ImageRepository pathRepo;
-	
-	// public VehiclesController(VehicleRepository catalog) {
-	// 	this.catalog = catalog;
-	// }
 
 	@GetMapping("/")
 	public String getTest(){

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Home from './Home';
+import Home from './vehicles/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import VehicleList from './VehicleList';
-import VehicleEdit from './VehicleEdit';
+import VehicleList from './vehicles/VehicleList';
+import VehicleEdit from './vehicles/VehicleEdit';
 
 class App extends Component {
   render() {
