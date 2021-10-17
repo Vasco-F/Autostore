@@ -46,6 +46,13 @@
 			<version>8.0.25</version>
 		</dependency>
 
+		<!-- To convert images to base64 string -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

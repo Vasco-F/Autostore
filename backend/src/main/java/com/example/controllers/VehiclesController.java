@@ -38,9 +38,17 @@ public class VehiclesController {
 	@Autowired
 	private ImageRepository pathRepo;
 
-	@GetMapping("/")
-	public String getTest(){
-		return "Service up and running!";
+	@GetMapping("/getByImgId/{id}")
+	public Image getTest(@PathVariable Long id){
+		Optional<Image> result = pathRepo.findById(id);
+
+		if(result.isPresent()){
+			Vehicle vehicle = result.get().getVehicle();
+			return result.get();
+		}
+
+		throw new VehicleNotFoundException(id);
+		// return "Service up and running!";
 	}
 	
 	@GetMapping("/vehicles")
@@ -53,12 +61,14 @@ public class VehiclesController {
 	@GetMapping("/vehicles/{id}")
 	public Vehicle getVehicle(@PathVariable Long id){
 
-		Optional<Vehicle> result = this.vehicleRepo.findById(id);
+		Optional<Vehicle> vehicleResult = this.vehicleRepo.findById(id);
 
-		if(result.isPresent())
-			return result.get();
+		if(vehicleResult.isPresent())
+			return vehicleResult.get();
 		else
 			throw new VehicleNotFoundException(id);
+
+		
 	}
 
 	@GetMapping(value = "/vehicles/{id}/image")

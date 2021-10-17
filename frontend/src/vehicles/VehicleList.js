@@ -48,7 +48,7 @@ class VehicleList extends Component {
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/vehicles/" + vehicle.id}>View</Button>
-                        <Button size="sm" color="secondary" tag={Link} to={"/vehicles/" + vehicle.id + "/update"}>Edit</Button>
+                        {/* <Button size="sm" color="secondary" tag={Link} to={"/vehicles/" + vehicle.id + "/update"}>Edit</Button> */}
                         <Button size="sm" color="danger" onClick={() => this.remove(vehicle.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
