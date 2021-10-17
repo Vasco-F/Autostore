@@ -161,9 +161,11 @@ public class VehiclesController {
 					vehicle.setModel(requestVehicle.getModel());
 				if(requestVehicle.getYear() != 0)
 					vehicle.setYear(requestVehicle.getYear());
-				if(requestVehicle.getConsumption() != 0) {
+				if(requestVehicle.getConsumption() != 0)
 					vehicle.setConsumption(requestVehicle.getConsumption());
-				}
+				if(requestVehicle.getImage() != null)
+					vehicle.setImage(requestVehicle.getImage());
+
 				
 				this.vehicleRepo.save(vehicle);
 			}else {
