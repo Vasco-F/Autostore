@@ -67,16 +67,16 @@ public class VehiclesController {
 
 			Vehicle vehicle = vehicleResult.get();
 
-			if(vehicle.getImage() != null){
+			// if(vehicle.getImage() != null){
 
-				FileSystemResource result = this.fileRepo.find(vehicle.getImage());
+			// 	FileSystemResource result = this.fileRepo.find(vehicle.getImage());
 				
-				byte[] imgByteArray = FileUtils.readFileToByteArray(result.getFile());
-				String imgBase64 = Base64.getEncoder().encodeToString(imgByteArray);
+			// 	byte[] imgByteArray = FileUtils.readFileToByteArray(result.getFile());
+			// 	String imgBase64 = Base64.getEncoder().encodeToString(imgByteArray);
 
-				vehicle.setImage(imgBase64);
+			// 	vehicle.setImage(imgBase64);
 				
-			}
+			// }
 
 			return vehicle;
 		}else
@@ -85,54 +85,54 @@ public class VehiclesController {
 		
 	}
 
-	@GetMapping(value = "/vehicles/{id}/image")
-	public FileSystemResource downloadVehiclePhoto(@PathVariable Long id) throws IOException {
+	// @GetMapping(value = "/vehicles/{id}/image")
+	// public FileSystemResource downloadVehiclePhoto(@PathVariable Long id) throws IOException {
 
-		// Optional<Image> result = this.pathRepo.findById(id);
+	// 	// Optional<Image> result = this.pathRepo.findById(id);
 
-		Optional<Vehicle> result = this.vehicleRepo.findById(id);
+	// 	Optional<Vehicle> result = this.vehicleRepo.findById(id);
 
-		if(result.isPresent()){
-			// Image file = result.get();
-			// String path = file.getPath();
-			// return this.fileRepo.find(path);
-			Vehicle vehicle = result.get();
+	// 	if(result.isPresent()){
+	// 		// Image file = result.get();
+	// 		// String path = file.getPath();
+	// 		// return this.fileRepo.find(path);
+	// 		Vehicle vehicle = result.get();
 
-			if(vehicle.getImage() != null)
-				return this.fileRepo.find(vehicle.getImage());
-			else
-				throw new VehicleNotFoundException(id);
+	// 		if(vehicle.getImage() != null)
+	// 			return this.fileRepo.find(vehicle.getImage());
+	// 		else
+	// 			throw new VehicleNotFoundException(id);
 
-		}else{
-			throw new VehicleNotFoundException(id);
-		}
-	}
+	// 	}else{
+	// 		throw new VehicleNotFoundException(id);
+	// 	}
+	// }
 
-	@PostMapping("/vehicles/{id}/image")
-	public Long uploadVehiclePhoto(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException {
+	// @PostMapping("/vehicles/{id}/image")
+	// public Long uploadVehiclePhoto(@RequestParam MultipartFile file, @PathVariable Long id) throws IOException {
 
-		byte[] fileBytes = file.getBytes();
-		String fileName = file.getOriginalFilename();
+	// 	byte[] fileBytes = file.getBytes();
+	// 	String fileName = file.getOriginalFilename();
 
-		Optional<Vehicle> result = this.vehicleRepo.findById(id);
+	// 	Optional<Vehicle> result = this.vehicleRepo.findById(id);
 
-		if(result.isPresent()){
-			String location = this.fileRepo.save(fileBytes, fileName);
-			Vehicle vehicle = result.get();
-			// Vehicle vehicle = new Vehicle();
-			// vehicle.setId(id);
+	// 	if(result.isPresent()){
+	// 		String location = this.fileRepo.save(fileBytes, fileName);
+	// 		Vehicle vehicle = result.get();
+	// 		// Vehicle vehicle = new Vehicle();
+	// 		// vehicle.setId(id);
 
-			vehicle.setImage(location);
+	// 		vehicle.setImage(location);
 
 
-			// Image image = new Image(vehicle, location);
+	// 		// Image image = new Image(vehicle, location);
 
-			// return this.pathRepo.save(image).getVehicle().getId();
-			return this.vehicleRepo.save(vehicle).getId();
-		}else{
-			throw new VehicleNotFoundException(id);
-		}
-	}
+	// 		// return this.pathRepo.save(image).getVehicle().getId();
+	// 		return this.vehicleRepo.save(vehicle).getId();
+	// 	}else{
+	// 		throw new VehicleNotFoundException(id);
+	// 	}
+	// }
 	
 	@PostMapping("/vehicles")
 	public Long insertVehicle(@RequestBody Vehicle vehicle) {
