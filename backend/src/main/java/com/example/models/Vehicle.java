@@ -3,6 +3,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,8 @@ public class Vehicle {
 	private short year;
 	
 	private float consumption;
+
+	private String image;
 	
 	public Vehicle(){}
 
@@ -27,6 +30,14 @@ public class Vehicle {
 		this.model = model;
 		this.year = year;
 		this.consumption = consumption;
+	}
+
+	public Vehicle(String manufacturer, String model, short year, float consumption, String path) {
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.year = year;
+		this.consumption = consumption;
+		this.image = path;
 	}
 	
 	public long getId() {
@@ -68,4 +79,12 @@ public class Vehicle {
 	public void setConsumption(float consumption) {
 		this.consumption = consumption;
 	}	
+
+	public String getImage(){
+		return this.image;
+	}
+
+	public void setImage(String path){
+		this.image = path;
+	}
 }
