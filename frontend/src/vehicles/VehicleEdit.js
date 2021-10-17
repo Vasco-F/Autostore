@@ -16,7 +16,8 @@ class VehicleEdit extends Component {
         super(props);
         this.state = {
             item: this.emptyItem,
-            isEdit: false
+            isEdit: false,
+            isAdd: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,7 +26,14 @@ class VehicleEdit extends Component {
     async componentDidMount(){
         if(this.props.match.params.id !== "new"){
             const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
-            this.setState({item: vehicle})
+            this.setState({
+                item: vehicle,
+                isAdd: false
+            })
+        }else{
+            this.setState({
+                isAdd: true
+            })
         }
     }
 
@@ -61,12 +69,10 @@ class VehicleEdit extends Component {
     render(){
         const {item} = this.state;
         const title = <h2>{item.id ? "Edit Vehicle" : "Add Vehicle" }</h2>
-        const isAdd = item.id ? true : false;
 
-        console.log(isAdd)
 
         let button;
-        if(isAdd || this.state.isEdit){
+        if(this.state.isAdd || this.state.isEdit){
             button = <FormGroup>
                 <Button color="primary" type="submit">Save</Button>{" "}
                 <Button color="secondary" tag={Link} to="/vehicles">Cancel</Button>
