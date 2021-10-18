@@ -1,29 +1,31 @@
-package com.example.repositories;
+// package com.example.repositories;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Date;
+// import java.io.IOException;
+// import java.nio.file.Files;
+// import java.nio.file.Path;
+// import java.nio.file.Paths;
+// import java.util.Date;
 
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Repository;
+// import org.springframework.core.io.FileSystemResource;
+// import org.springframework.stereotype.Repository;
 
-@Repository
-public class FileSystemRepository {
+// Class currently not being used
 
-    private String RESOURCES_DIR = "vehicle-images/";
+// @Repository
+// public class FileSystemRepository {
 
-    public String save(byte[] content, String imageName) throws IOException{
-        Path newFile = Paths.get(RESOURCES_DIR + new Date().getTime() + "-" + imageName);
-        Files.createDirectories(newFile.getParent());
+//     private String RESOURCES_DIR = "vehicle-images/";
+
+//     public String save(byte[] content, String imageName) throws IOException{
+//         Path newFile = Paths.get(RESOURCES_DIR + new Date().getTime() + "-" + imageName);
+//         Files.createDirectories(newFile.getParent());
          
-        Files.write(newFile, content);
+//         Files.write(newFile, content);
 
-        return newFile.toAbsolutePath().toString();
-    }   
+//         return newFile.toAbsolutePath().toString();
+//     }   
     
-    public FileSystemResource find(String location){
-        return new FileSystemResource(Paths.get(location));
-    }
-}
+//     public FileSystemResource find(String location){
+//         return new FileSystemResource(Paths.get(location));
+//     }
+// }

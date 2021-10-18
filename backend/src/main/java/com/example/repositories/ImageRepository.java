@@ -1,12 +1,14 @@
-package com.example.repositories;
+// package com.example.repositories;
 
-import com.example.models.Image;
+// import com.example.models.Image;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.repository.CrudRepository;
+// import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ImageRepository extends CrudRepository<Image, Long>{
+// Class currently not being used
 
-}
+// @Repository
+// public interface ImageRepository extends CrudRepository<Image, Long>{
+
+// }
 	
