@@ -1,8 +1,24 @@
 #!/bin/bash
 
-cd backend
-chmod +x ./mvnw
-sudo ./mvnw package -Dmaven.test.skip
-cd ..
+if ! [ $(id -u) = 0 ]; then
+    echo "The script needs to be ran as root!" >&2
+    exit 1
+fi
 
-sudo docker-compose up
+if [ -x "$(command -v docker-compose)" ]; then
+    echo "docker-compose is already installed!"
+else
+    echo "docker-compose needs to be installed for the deployment to work!"
+    exit 1
+fi
+
+echo "Backend component will be compiled using maven."
+
+# cd backend
+# chmod +x ./mvnw
+# sudo ./mvnw package -Dmaven.test.skip
+# cd ..
+
+echo "Services will be created using docker-compose."
+
+# sudo docker-compose up
