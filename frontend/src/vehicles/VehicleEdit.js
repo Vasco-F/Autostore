@@ -102,9 +102,11 @@ class VehicleEdit extends Component {
         const consumption = this.state.item.consumption;
 
         const result = ((consumption * roadtrip.kilometers) / 100) * roadtrip.gas_price;
-        console.log(result)
+        //Currently not rounding the value and not sure why
+        const rounded_cost = Math.ceil(result * 100)/100;
+        console.log(rounded_cost)
         this.setState({
-            roadtrip_cost: result
+            roadtrip_cost: rounded_cost
         })
     }
 
@@ -131,23 +133,23 @@ class VehicleEdit extends Component {
                 <Button color="primary">Edit</Button>
             </FormGroup>;
 
-            // calculator = <div>
-            //     <h2>Roadtrip Calculator</h2>
-            //     <Form>
-            //         <FormGroup>
-            //             <Label for="image">Kilometers</Label>
-            //             <Input type="value" name="kilometers" id="kilometers" value={this.state.roadtrip.kilometers || ""}
-            //                 onChange={this.handleCalculatorChange} autoComplete="kilometers"/>
-            //         </FormGroup>
-            //         <FormGroup>
-            //             <Label for="image">Gas Price</Label>
-            //             <Input type="value" name="gas_price" id="gas_price" value={this.state.roadtrip.gas_price || ""}
-            //                 onChange={this.handleCalculatorChange} autoComplete="gas_price"/>
-            //         </FormGroup>
-            //         <Button color="primary" onClick={this.calculateRoadTripCost()}>Calculate</Button>
-            //         <p>Result: {this.state.roadtrip_cost}</p>
-            //     </Form>
-            // </div>
+            calculator = <div>
+                <h2>Roadtrip Calculator</h2>
+                <Form>
+                    <FormGroup>
+                        <Label for="image">Kilometers</Label>
+                        <Input type="value" name="kilometers" id="kilometers" value={this.state.roadtrip.kilometers || ""}
+                            onChange={this.handleCalculatorChange} autoComplete="kilometers"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="image">Gas Price (Per Liter)</Label>
+                        <Input type="value" name="gas_price" id="gas_price" value={this.state.roadtrip.gas_price || ""}
+                            onChange={this.handleCalculatorChange} autoComplete="gas_price"/>
+                    </FormGroup>
+                    <Button color="primary" onClick={this.calculateRoadTripCost}>Calculate</Button>
+                    <p>Result: {this.state.roadtrip_cost}</p>
+                </Form>
+            </div>
             
         }
 
