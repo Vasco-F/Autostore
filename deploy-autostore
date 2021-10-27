@@ -14,11 +14,11 @@ fi
 
 echo "Backend component will be compiled using maven."
 
-# cd backend
-# chmod +x ./mvnw
-# sudo ./mvnw package -Dmaven.test.skip
-# cd ..
+cd backend
+chmod +x ./mvnw
+sudo ./mvnw package -Dmaven.test.skip
+cd ..
 
 echo "Services will be created using docker-compose."
 
-# sudo docker-compose up
+sudo docker-compose up
