@@ -1,11 +1,13 @@
 package com.example.services;
 
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.example.dtos.VehicleDTO;
 import com.example.exceptions.InvalidRegistrationYearException;
+import com.example.exceptions.InvalidVehicleRegistrationInfo;
 import com.example.exceptions.VehicleNotFoundException;
 import com.example.models.Vehicle;
 import com.example.repositories.VehicleRepository;
@@ -19,26 +21,23 @@ public class VehicleService {
     @Autowired
 	private VehicleRepository vehicleRepo;
 
-    public List<Vehicle> getAll(){
-        ArrayList<Vehicle> foundVehicles = (ArrayList<Vehicle>) this.vehicleRepo.findAll();
-
-		return foundVehicles;
+    public List<VehicleDTO> getAll(){
+        return ((List<Vehicle>) this.vehicleRepo.findAll())
+            .stream()
+            .map(this::convertToVehicleDTO)
+                .collect(Collectors.toList());
     }
 
-    public Vehicle getById(Long id){
+    public VehicleDTO getById(Long id){
         Optional<Vehicle> vehicleResult = this.vehicleRepo.findById(id);
 
-		if(vehicleResult.isPresent()){
-			return vehicleResult.get();
-		}else{
-            throw new VehicleNotFoundException(id);
-        }
+        return convertToVehicleDTO(vehicleResult.orElseThrow(() -> new VehicleNotFoundException(id)));
     }
 
-    public Long insert(Vehicle vehicle){
+    public Long insert(Vehicle vehicle) {
         //Should replace the sysout with a proper http error response
-			if(vehicle.getManufacturer() == null || vehicle.getModel() == null)
-            System.out.println("Error: Parameters not properly filled");
+        if(vehicle.getManufacturer() == null || vehicle.getModel() == null)
+            throw new InvalidVehicleRegistrationInfo("Error: Parameters not properly filled");
         
         if(vehicle.getYear() < 1886 || vehicle.getYear() > Year.now().getValue())
             throw new InvalidRegistrationYearException();
@@ -72,5 +71,15 @@ public class VehicleService {
 
     public void deleteById(Long id){
         this.vehicleRepo.deleteById(id);
+    }
+
+    private VehicleDTO convertToVehicleDTO(Vehicle vehicle){
+        VehicleDTO mappedDTO = new VehicleDTO(vehicle.getId(), 
+        vehicle.getManufacturer(), 
+        vehicle.getModel(),
+        vehicle.getYear(),
+        vehicle.getConsumption());
+
+        return mappedDTO;
     }
 }

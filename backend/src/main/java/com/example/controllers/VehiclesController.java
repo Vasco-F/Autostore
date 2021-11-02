@@ -1,15 +1,10 @@
 package com.example.controllers;
 
 import java.io.IOException;
-import java.time.Year;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
 
+import com.example.dtos.VehicleDTO;
 import com.example.models.Vehicle;
-import com.example.exceptions.InvalidRegistrationYearException;
-import com.example.exceptions.VehicleNotFoundException;
-import com.example.repositories.VehicleRepository;
 import com.example.services.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +23,13 @@ public class VehiclesController {
 	private VehicleService service;
 	
 	@GetMapping("/vehicles")
-	public List<Vehicle> getVehicles(){
+	public List<VehicleDTO> getVehicles(){
 		
 		return service.getAll();
 	}
 
 	@GetMapping("/vehicles/{id}")
-	public Vehicle getVehicle(@PathVariable Long id) throws IOException{
+	public VehicleDTO getVehicle(@PathVariable Long id) throws IOException{
 
 		return service.getById(id);
 	}

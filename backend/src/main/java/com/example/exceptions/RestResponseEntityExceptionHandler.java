@@ -1,7 +1,4 @@
-package com.example.autostore;
-
-import com.example.exceptions.InvalidRegistrationYearException;
-import com.example.exceptions.VehicleNotFoundException;
+package com.example.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +17,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(err, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, req);
     }
 
-    @ExceptionHandler(value = { InvalidRegistrationYearException.class})
+    @ExceptionHandler(value = { InvalidRegistrationYearException.class, InvalidVehicleRegistrationInfo.class})
     protected ResponseEntity<Object> handleBadRequestConflict(RuntimeException err, WebRequest req){
         String bodyOfResponse = err.getMessage();
         return handleExceptionInternal(err, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, req);
