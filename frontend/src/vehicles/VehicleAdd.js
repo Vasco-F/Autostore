@@ -3,7 +3,7 @@ import {Button, Container, Form, FormGroup, Input, Label} from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import {Link, withRouter} from "react-router-dom";
 
-class VehicleEdit extends Component {
+class VehicleAdd extends Component {
     
     emptyItem = {
         manufacturer: "",
@@ -13,39 +13,28 @@ class VehicleEdit extends Component {
         image_url: ""
     };
 
-    emptyRoadtrip = {
-        kilometers: 0,
-        gas_price: 0
-    };
-
     constructor(props){
         super(props);
         this.state = {
-            item: this.emptyItem,
-            isEdit: false,
-            isAdd: false,
-            roadtrip: this.emptyRoadtrip,
-            roadtrip_cost: 0
+            item: this.emptyItem
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleCalculatorChange = this.handleCalculatorChange.bind(this);
-        this.calculateRoadTripCost = this.calculateRoadTripCost.bind(this);
     }
 
-    async componentDidMount(){
-        if(this.props.match.params.id !== "new"){
-            const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
-            this.setState({
-                item: vehicle,
-                isAdd: false
-            })
-        }else{
-            this.setState({
-                isAdd: true
-            })
-        }
-    }
+    // async componentDidMount(){
+    //     if(this.props.match.params.id !== "new"){
+    //         const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
+    //         this.setState({
+    //             item: vehicle,
+    //             isAdd: false
+    //         })
+    //     }else{
+    //         this.setState({
+    //             isAdd: true
+    //         })
+    //     }
+    // }
 
     handleChange(event) {
         const target = event.target;
@@ -56,65 +45,30 @@ class VehicleEdit extends Component {
         this.setState({item});
     }
 
-    handleCalculatorChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        let roadtrip = {...this.state.roadtrip};
-        roadtrip[name] = value;
-        this.setState({roadtrip});
-    }
-
     async handleSubmit(event){
-        console.log("Recebeu um submit")
         event.preventDefault();
         const {item} = this.state;
 
-        //In this case it is an edit request
-        if(!this.state.isAdd && !this.state.isEdit){
-            this.setState({
-                isEdit: true
-            })
-        }else{
-            await fetch("/vehicles" + (item.id ? "/" + item.id : ""),{
-                method: (item.id)? "PUT" : "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(item),
-            })
-            
-            this.props.history.push("/vehicles");
-
-            if(this.state.isAdd)
-                this.setState({isAdd: false});
-            if(this.state.isEdit)
-                this.setState({isEdit: false});
-        }
-            
-    }  
-
-    calculateRoadTripCost(){
-        const {roadtrip} = this.state;
-        const consumption = this.state.item.consumption;
-
-        const result = ((consumption * roadtrip.kilometers) / 100) * roadtrip.gas_price;
-        //Currently not rounding the value and not sure why
-        const rounded_cost = Math.ceil(result * 100)/100;
-        console.log(rounded_cost)
-        this.setState({
-            roadtrip_cost: rounded_cost
+        await fetch("/vehicles",{
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(item),
         })
+        
+        this.props.history.push("/vehicles");
+            
     }
 
     render(){
-        const {item} = this.state;
+        const {item} = this.state;            
 
         return <div>
             <AppNavbar/>
             <Container>
-                <h2>Edit Vehicle</h2>
+                <h2>Add Vehicle</h2>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="manufacturer">Manufacturer</Label>
@@ -150,4 +104,4 @@ class VehicleEdit extends Component {
         </div>
     }
 }
-export default withRouter(VehicleEdit);
+export default withRouter(VehicleAdd);
