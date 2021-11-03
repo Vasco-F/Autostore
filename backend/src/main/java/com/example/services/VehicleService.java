@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.dtos.RoadtripDTO;
 import com.example.dtos.VehicleDTO;
 import com.example.exceptions.InvalidRegistrationYearException;
 import com.example.exceptions.InvalidVehicleRegistrationInfo;
@@ -34,51 +35,84 @@ public class VehicleService {
         return convertToVehicleDTO(vehicleResult.orElseThrow(() -> new VehicleNotFoundException(id)));
     }
 
-    public Long insert(Vehicle vehicle) {
-        //Should replace the sysout with a proper http error response
+    public RoadtripDTO getTripCost(Long id, float distance, float fuelPrice){
+        Optional<Vehicle> vehicleResult = this.vehicleRepo.findById(id);
+
+        VehicleDTO vehicleDTO = convertToVehicleDTO(vehicleResult.orElseThrow(() -> { throw new VehicleNotFoundException(id);}));
+        float cost = (distance * vehicleDTO.getConsumption() / 100) * fuelPrice;
+
+        return new RoadtripDTO(vehicleDTO, distance, fuelPrice, cost);
+    }
+
+    public Long insert(VehicleDTO vehicle) {
+        
         if(vehicle.getManufacturer() == null || vehicle.getModel() == null)
             throw new InvalidVehicleRegistrationInfo("Error: Parameters not properly filled");
         
         if(vehicle.getYear() < 1886 || vehicle.getYear() > Year.now().getValue())
             throw new InvalidRegistrationYearException();
         
-        return this.vehicleRepo.save(vehicle).getId();	
+        return this.vehicleRepo.save(convertToVehicle(vehicle)).getId();	
     }
 
-    public void update(Vehicle requestVehicle, Long id){
+    /**
+     * This method updates the whole vehicle fields
+     * @param requestVehicle The DTO containing the new fields to update
+     * @param id The vehicle id to update
+     */
+    public void update(VehicleDTO requestVehicle, Long id){
         Optional<Vehicle> result = this.vehicleRepo.findById(id);
 			
-			if(result.isPresent()) {
-				Vehicle vehicle = result.get();
-				
-				if(requestVehicle.getManufacturer() != null)
-					vehicle.setManufacturer(requestVehicle.getManufacturer());
-				if(requestVehicle.getModel() != null)
-					vehicle.setModel(requestVehicle.getModel());
-				if(requestVehicle.getYear() != 0)
-					vehicle.setYear(requestVehicle.getYear());
-				if(requestVehicle.getConsumption() != 0)
-					vehicle.setConsumption(requestVehicle.getConsumption());
-				if(requestVehicle.getImage() != null)
-					vehicle.setImage(requestVehicle.getImage());
-
-				
-				this.vehicleRepo.save(vehicle);
-			}else {
-				throw new VehicleNotFoundException(id);
-			}
+        result.ifPresentOrElse(vehicle -> {
+            vehicle.setManufacturer(requestVehicle.getManufacturer());
+            vehicle.setModel(requestVehicle.getModel());
+            vehicle.setYear(requestVehicle.getYear());
+            vehicle.setConsumption(requestVehicle.getConsumption());
+            vehicle.setImage(requestVehicle.getImage());
+        }, () -> {
+            throw new VehicleNotFoundException(id);
+        });
     }
 
     public void deleteById(Long id){
         this.vehicleRepo.deleteById(id);
     }
 
+    /**
+     * 
+     * @param vehicle
+     * @return
+     */
+    private Vehicle convertToVehicle(VehicleDTO vehicle){
+        Vehicle mappedEntity = new Vehicle();
+
+        if(vehicle.hasId())
+            mappedEntity.setId(vehicle.getVehicleId());
+        
+        mappedEntity.setManufacturer(vehicle.getManufacturer());
+        mappedEntity.setModel(vehicle.getModel());
+        mappedEntity.setYear(vehicle.getYear());
+        mappedEntity.setConsumption(vehicle.getConsumption());
+        mappedEntity.setImage(vehicle.getImage());
+
+        return mappedEntity;
+    }
+
+
+    /**
+     * 
+     * @param vehicle
+     * @return
+     */
     private VehicleDTO convertToVehicleDTO(Vehicle vehicle){
-        VehicleDTO mappedDTO = new VehicleDTO(vehicle.getId(), 
-        vehicle.getManufacturer(), 
-        vehicle.getModel(),
-        vehicle.getYear(),
-        vehicle.getConsumption());
+        VehicleDTO mappedDTO = new VehicleDTO();
+
+        mappedDTO.setVehicleId(vehicle.getId());
+        mappedDTO.setManufacturer(vehicle.getManufacturer());
+        mappedDTO.setModel(vehicle.getModel());
+        mappedDTO.setYear(vehicle.getYear());
+        mappedDTO.setConsumption(vehicle.getConsumption());
+        mappedDTO.setImage(vehicle.getImage());
 
         return mappedDTO;
     }

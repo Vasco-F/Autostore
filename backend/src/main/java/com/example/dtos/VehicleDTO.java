@@ -12,13 +12,18 @@ public class VehicleDTO {
 
     private float consumption;
 
-    public VehicleDTO(Long vehicleId, String manufacturer, String model, short year, float consumption) {
+    private String image;
+
+    public VehicleDTO(){}
+
+    public VehicleDTO(Long vehicleId, String manufacturer, String model, short year, float consumption, String image) {
 
         this.vehicleId = vehicleId;
         this.manufacturer = manufacturer;
         this.model = model;
         this.year = year;
         this.consumption = consumption;
+        this.image = image;
 
     }
 
@@ -60,5 +65,17 @@ public class VehicleDTO {
 
     public void setConsumption(float consumption) {
         this.consumption = consumption;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }    
+
+    public boolean hasId(){
+        return this.vehicleId != null;
+    }
 }
