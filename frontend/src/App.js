@@ -16,9 +16,9 @@ class App extends Component {
             <Route path='/' exact={true} component={Home}/>
             <Route path='/vehicles' exact={true} component={VehicleList}/>
             <Route path='/vehicles/new' exact={true} component={VehicleAdd}/>
-            <Route path='/vehicles/:id' component={VehicleView}/>
             <Route path='/vehicles/:id/update' component={VehicleEdit}/>
             <Route path='/vehicles/:id/roadtrip-cost' component={VehicleTripCost}/>
+            <Route path='/vehicles/:id' component={VehicleView}/>
             <Route path='/*' component={Home}/>
           </Switch>
         </Router>

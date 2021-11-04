@@ -40,15 +40,15 @@ class VehicleList extends Component {
         }
 
         const vehicleList = vehicles.map(vehicle => {
-            return <tr key={vehicle.id}>
+            return <tr key={vehicle.vehicleId}>
                 <td style={{whiteSpace: "nowrap"}}>{vehicle.manufacturer}</td>
                 <td>{vehicle.model}</td>
                 <td>{vehicle.year}</td>
                 <td>{vehicle.consumption}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/vehicles/" + vehicle.id}>View</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(vehicle.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/vehicles/" + vehicle.vehicleId}>View</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(vehicle.vehicleId)}>Delete</Button>
                     </ButtonGroup>
                 </td>
             </tr>

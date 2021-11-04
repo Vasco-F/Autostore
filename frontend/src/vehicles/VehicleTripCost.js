@@ -5,7 +5,7 @@ import {Link, withRouter} from "react-router-dom";
 
 import "./VehicleView.css";
 
-class VehicleEdit extends Component {
+class VehicleTripCost extends Component {
     
     emptyVehicle = {
         manufacturer: "",
@@ -33,8 +33,16 @@ class VehicleEdit extends Component {
     async componentDidMount(){
         if(!this.state.calculated){
             const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
+
+            this.emptyItem = {
+                vehicle: vehicle,
+                distance: 0,
+                fuelPrice: 0,
+                cost: 0
+            };
+
             this.setState({
-                item: vehicle,
+                item: this.emptyItem,
                 isAdd: false
             })
         }
@@ -114,4 +122,4 @@ class VehicleEdit extends Component {
         </div>
     }
 }
-export default withRouter(VehicleEdit);
+export default withRouter(VehicleTripCost);
