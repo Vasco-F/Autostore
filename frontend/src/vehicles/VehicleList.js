@@ -27,7 +27,7 @@ class VehicleList extends Component {
                 "Content-Type": "application/json"
             }
         }).then(() => {
-            let updatedVehicles = [...this.state.vehicles].filter( i => i.id !== id);
+            let updatedVehicles = [...this.state.vehicles].filter( i => i.vehicleId !== id);
             this.setState({vehicles: updatedVehicles});
         })
     }
