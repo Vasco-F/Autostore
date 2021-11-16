@@ -10,7 +10,7 @@ class VehicleEdit extends Component {
         model: "",
         year: 0,
         consumption: 0,
-        image_url: ""
+        image: ""
     };
 
     constructor(props){
@@ -29,6 +29,9 @@ class VehicleEdit extends Component {
         this.setState({
             item: vehicle
         })
+
+        console.log("A carregar o objeto")
+        console.log(this.state.item)
     }
 
     handleChange(event) {
@@ -38,6 +41,9 @@ class VehicleEdit extends Component {
         let item = {...this.state.item};
         item[name] = value;
         this.setState({item});
+
+        console.log("key:" + name + " value:" + value);
+        console.log(item)
     }
 
     async handleSubmit(event){
@@ -89,7 +95,7 @@ class VehicleEdit extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="image">Image URL</Label>
-                        <Input type="value" name="image" id="image" value={item.image || ""}
+                        <Input type="text" name="image" id="image" value={item.image || ""}
                             onChange={this.handleChange} autoComplete="image"/>
                     </FormGroup>
                     <FormGroup>

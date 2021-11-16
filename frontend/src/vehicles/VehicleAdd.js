@@ -10,7 +10,7 @@ class VehicleAdd extends Component {
         model: "",
         year: 0,
         consumption: 0,
-        image_url: ""
+        image: ""
     };
 
     constructor(props){
@@ -21,20 +21,6 @@ class VehicleAdd extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // async componentDidMount(){
-    //     if(this.props.match.params.id !== "new"){
-    //         const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
-    //         this.setState({
-    //             item: vehicle,
-    //             isAdd: false
-    //         })
-    //     }else{
-    //         this.setState({
-    //             isAdd: true
-    //         })
-    //     }
-    // }
 
     handleChange(event) {
         const target = event.target;

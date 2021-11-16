@@ -38,7 +38,7 @@ class VehicleView extends Component {
             <AppNavbar/>
             <Container>
                 <h2>View Vehicle</h2>
-                <img src={item.image} alt="Vehicle" class="vehicle-img"/>
+                <img src={item.image} alt="Vehicle" className="vehicle-img"/>
                 <Form>
                     <FormGroup>
                         <Label for="manufacturer">Manufacturer</Label>

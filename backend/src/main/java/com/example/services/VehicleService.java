@@ -69,6 +69,8 @@ public class VehicleService {
             vehicle.setYear(requestVehicle.getYear());
             vehicle.setConsumption(requestVehicle.getConsumption());
             vehicle.setImage(requestVehicle.getImage());
+
+            this.vehicleRepo.save(vehicle);
         }, () -> {
             throw new VehicleNotFoundException(id);
         });
