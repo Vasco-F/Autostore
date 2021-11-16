@@ -1,17 +1,17 @@
 version: "3"
 services:
-    autostore-frontend:
-        ports:
-            - "3000:3000"
-        build:
-            context: frontend
-            dockerfile: Dockerfile
-        networks:
-            - uphill-net
-        depends_on:
-            - autostore-backend
-        links:
-            - autostore-backend
+    # autostore-frontend:
+    #     ports:
+    #         - "3000:3000"
+    #     build:
+    #         context: frontend
+    #         dockerfile: Dockerfile
+    #     networks:
+    #         - uphill-net
+    #     depends_on:
+    #         - autostore-backend
+    #     links:
+    #         - autostore-backend
 
 
     autostore-backend:
