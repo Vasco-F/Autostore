@@ -5,6 +5,9 @@ frontend/node_modules
 frontend/.pnp
 .pnp.js
 
+#To avoid npm commands in the wrong directory
+node_modules
+
 # testing
 frontend/coverage
 

@@ -38,7 +38,7 @@ public class Vehicle {
 		this.consumption = consumption;
 		this.image = path;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

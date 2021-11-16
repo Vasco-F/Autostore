@@ -10,7 +10,7 @@
 // import javax.persistence.PrimaryKeyJoinColumn;
 // import javax.persistence.Table;
 
-// Class currently not used
+// // Class currently not used
 
 // @Entity
 // @Table(name = "images")

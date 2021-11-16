@@ -24,14 +24,10 @@ class VehicleEdit extends Component {
 
     async componentDidMount(){
         const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
-        
-
+    
         this.setState({
             item: vehicle
         })
-
-        console.log("A carregar o objeto")
-        console.log(this.state.item)
     }
 
     handleChange(event) {
@@ -40,17 +36,12 @@ class VehicleEdit extends Component {
         const name = target.name;
         let item = {...this.state.item};
         item[name] = value;
-        this.setState({item});
-
-        console.log("key:" + name + " value:" + value);
-        console.log(item)
+        this.setState({item});        
     }
 
     async handleSubmit(event){
         event.preventDefault();
         const {item} = this.state;
-
-        console.log(item);
 
         await fetch("/vehicles/" + item.vehicleId,{
             method: "PUT",

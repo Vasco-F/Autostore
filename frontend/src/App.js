@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import VehicleList from './vehicles/VehicleList';
 import VehicleEdit from './vehicles/VehicleEdit';
 import VehicleView from './vehicles/VehicleView';
-import VehicleTripCost from './vehicles/VehicleTripCost';
+import VehicleTripCost from './vehicles/VehicleTripCost1';
 import VehicleAdd from './vehicles/VehicleAdd';
 
 class App extends Component {

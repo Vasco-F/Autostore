@@ -60,7 +60,7 @@ class VehicleTripCost extends Component {
     async handleSubmit(event){
         event.preventDefault();
 
-        const result = await (await fetch(`/vehicles/${this.props.match.params.id}+/roadtrip-calculator`)).json();
+        const result = await (await fetch(`/vehicles/${this.props.match.params.id}/roadtrip-calculator`)).json();
         this.setState({
             item: result,
             isAdd: true
