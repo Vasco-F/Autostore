@@ -23,17 +23,12 @@ class VehicleEdit extends Component {
     }
 
     async componentDidMount(){
-        if(this.props.match.params.id !== "new"){
-            const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
-            this.setState({
-                item: vehicle,
-                isAdd: false
-            })
-        }else{
-            this.setState({
-                isAdd: true
-            })
-        }
+        const vehicle = await (await fetch(`/vehicles/${this.props.match.params.id}`)).json();
+        
+
+        this.setState({
+            item: vehicle
+        })
     }
 
     handleChange(event) {
@@ -49,6 +44,8 @@ class VehicleEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
+        console.log(item);
+
         await fetch("/vehicles/" + item.vehicleId,{
             method: "PUT",
             headers: {
@@ -58,7 +55,7 @@ class VehicleEdit extends Component {
             body: JSON.stringify(item),
         })
         
-        this.props.history.push("/vehicles");
+        this.props.history.push("/vehicles/" + item.vehicleId);
             
     }  
 
