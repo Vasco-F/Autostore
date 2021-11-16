@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {Button, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import AppNavbar from "./AppNavbar";
-import {Link, withRouter} from "react-router-dom";
-import "./VehicleView.css";
+import {Container, Button, TextField, Box} from "@mui/material"
+import ButtonAppBar from "./ButtonAppBar";
+import {withRouter} from "react-router-dom";
 
+import "./ImageCenter.css";
 
 class VehicleView extends Component {
     
@@ -12,7 +12,7 @@ class VehicleView extends Component {
         model: "",
         year: 0,
         consumption: 0,
-        image_url: ""
+        image: ""
     };
 
     constructor(props){
@@ -34,42 +34,75 @@ class VehicleView extends Component {
     render(){
         const {item} = this.state;           
 
+        let vehicle_image;
+        if(item.image && item.image !== "")
+            vehicle_image = <img src={item.image} alt="Vehicle" className="vehicle-img"/>;
+
         return <div>
-            <AppNavbar/>
+            <ButtonAppBar/>
             <Container>
-                <h2>View Vehicle</h2>
-                <img src={item.image} alt="Vehicle" className="vehicle-img"/>
-                <Form>
-                    <FormGroup>
-                        <Label for="manufacturer">Manufacturer</Label>
-                        <Input type="text" name="manufacturer" id="manufacturer" value={item.manufacturer || ""}
-                            autoComplete="manufacturer" disabled ="disabled"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="model">Model</Label>
-                        <Input type="text" name="model" id="model" value={item.model || ""}
-                            autoComplete="model" disabled ="disabled"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="year">Year</Label>
-                        <Input type="value" name="year" id="year" value={item.year || ""}
-                            autoComplete="year" disabled ="disabled"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="consumption">Comsumption</Label>
-                        <Input type="value" name="consumption" id="consumption" value={item.consumption || ""}
-                            autoComplete="consumption" disabled ="disabled"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="image">Image URL</Label>
-                        <Input type="value" name="image" id="image" value={item.image || ""}
-                            autoComplete="image" disabled ="disabled"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Button color="primary" tag={Link} to={"/vehicles/" + item.vehicleId + "/update"}>Edit Vehicle</Button>
-                        <Button color="secondary" tag={Link} to={"/vehicles/" + item.vehicleId + "/roadtrip-cost"}>Roadtrip Cost Calculator</Button>
-                    </FormGroup>
-                </Form> 
+                <h2>Vehicle Roadtrip Calculator</h2>
+                <Box
+                    sx={{ 
+                        mb: 2,
+                        mx: "auto"
+                    }}
+                >
+                    {vehicle_image}
+                </Box>
+                <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '100%' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        disabled
+                        id="outlined-read-only-input"
+                        name="manufacturer"
+                        label="Vehicle Manufacturer"
+                        value={item.manufacturer || ""}
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        disabled
+                        id="outlined-read-only-input"
+                        name="model"
+                        label="Vehicle Model"
+                        value={item.model || ""}
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        disabled
+                        id="outlined-read-only-input"
+                        name="year"
+                        label="Year"
+                        value={item.year || ""}
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        disabled
+                        id="outlined-read-only-input"
+                        name="consumption"
+                        label="Vehicle Consumption"
+                        value={item.consumption || ""}
+                        onChange={this.handleChange}
+                    />
+                    {/* <TextField
+                        disabled
+                        id="outlined-read-only-input"
+                        name="image"
+                        label="Vehicle Image"
+                        value={item.image || ""}
+                        onChange={this.handleChange}
+                    /> */}
+                </Box>
+                <Box>
+                    <Button variant="contained" href={"/vehicles/" + item.vehicleId + "/update"}>Edit Vehicle Info</Button>{" "}
+                    <Button variant="contained" href={"/vehicles/" + item.vehicleId + "/roadtrip-cost"}>Roadtrip Cost Calculator</Button>
+                </Box>
             </Container>
         </div>
     }
