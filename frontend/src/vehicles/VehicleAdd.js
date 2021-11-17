@@ -3,6 +3,8 @@ import {Container, Button, TextField, Box} from "@mui/material"
 import ButtonAppBar from "./ButtonAppBar";
 import {withRouter} from "react-router-dom";
 
+import Typography from '@mui/material/Typography';
+
 class VehicleAdd extends Component {
     
     emptyItem = {
@@ -44,7 +46,7 @@ class VehicleAdd extends Component {
             body: JSON.stringify(item),
         })
         
-        this.props.history.push("/vehicles/" + item.vehicleId);            
+        this.props.history.push("/vehicles/");            
     }
 
     render(){
@@ -53,11 +55,15 @@ class VehicleAdd extends Component {
         return <div>
             <ButtonAppBar/>
             <Container>
-                <h2>Add Vehicle</h2>
+                <Box sx={{ width: '100%', maxWidth: 500 , p: 1}}>
+                    <Typography variant="h4" component="div" gutterBottom>
+                        Add Vehicle
+                    </Typography>
+                </Box>
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 1, width: '100%' },
+                        '& > :not(style)': { mb: 1, width: '100%' },
                     }}
                     noValidate
                     autoComplete="off"
@@ -103,7 +109,7 @@ class VehicleAdd extends Component {
                         onChange={this.handleChange}
                     />
                 </Box>
-                <Box>
+                <Box sx={{mt:2}}>
                     <Button variant="contained" type="submit" onClick={this.handleSubmit} color="success">Save</Button>{" "}
                     <Button variant="contained" href="/vehicles" color="error">Cancel</Button>
                 </Box>

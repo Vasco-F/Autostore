@@ -80,7 +80,7 @@ class VehicleEdit extends Component {
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 1, width: '100%' },
+                        '& > :not(style)': { mb: 1, width: '100%' },
                     }}
                     noValidate
                     autoComplete="off"

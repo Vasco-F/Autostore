@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Container, Button, TextField, Box} from "@mui/material"
+import {Container, Button, TextField, Box, Typography} from "@mui/material"
 import ButtonAppBar from "./ButtonAppBar";
 import {withRouter} from "react-router-dom";
 
@@ -41,7 +41,11 @@ class VehicleView extends Component {
         return <div>
             <ButtonAppBar/>
             <Container>
-                <h2>Vehicle Roadtrip Calculator</h2>
+                <Box sx={{ width: '100%', maxWidth: 500 , p: 1}}>
+                    <Typography variant="h4" component="div" gutterBottom>
+                        Vehicle Roadtrip Calculator
+                    </Typography>
+                </Box>
                 <Box
                     sx={{ 
                         mb: 2,
@@ -53,7 +57,7 @@ class VehicleView extends Component {
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 1, width: '100%' },
+                        '& > :not(style)': { mb: 1, width: '100%' },
                     }}
                     noValidate
                     autoComplete="off"
@@ -90,16 +94,8 @@ class VehicleView extends Component {
                         value={item.consumption || ""}
                         onChange={this.handleChange}
                     />
-                    {/* <TextField
-                        disabled
-                        id="outlined-read-only-input"
-                        name="image"
-                        label="Vehicle Image"
-                        value={item.image || ""}
-                        onChange={this.handleChange}
-                    /> */}
                 </Box>
-                <Box>
+                <Box sx={{mt: 2}}>
                     <Button variant="contained" href={"/vehicles/" + item.vehicleId + "/update"}>Edit Vehicle Info</Button>{" "}
                     <Button variant="contained" href={"/vehicles/" + item.vehicleId + "/roadtrip-cost"}>Roadtrip Cost Calculator</Button>
                 </Box>
