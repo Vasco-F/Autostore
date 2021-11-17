@@ -127,8 +127,8 @@ class VehicleEdit extends Component {
                     />
                 </Box>
                 <Box>
-                    <Button variant="contained" type="submit" onClick={this.handleSubmit}>Save</Button>{" "}
-                    <Button variant="contained" href="/vehicles">Cancel</Button>
+                    <Button variant="contained" type="submit" onClick={this.handleSubmit} color="success">Save</Button>{" "}
+                    <Button variant="contained" href="/vehicles" color="error">Cancel</Button>
                 </Box>
             </Container>
         </div>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import '../App.css';
-import AppNavbar from "./AppNavbar";
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
+
+import ButtonAppBar from "./ButtonAppBar";
 
 class Home extends Component {
     render() {
         return (
             <div>
-                <AppNavbar/>
+                <ButtonAppBar/>
                 <Container fluid>
                     <Button color="link"><Link to="/vehicles">Vehicles</Link></Button>
                 </Container>
