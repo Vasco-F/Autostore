@@ -13,7 +13,7 @@ class App extends Component {
     return (
         <Router>
           <Switch>
-            <Route path='/' exact={true} component={VehicleList}/>
+            <Route path='/' exact={true} component={Home}/>
             <Route path='/vehicles' exact={true} component={VehicleList}/>
             <Route path='/vehicles/new' exact={true} component={VehicleAdd}/>
             <Route path='/vehicles/:id/update' component={VehicleEdit}/>

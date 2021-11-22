@@ -82,7 +82,7 @@ class VehicleList extends Component {
                                     <TableCell align="right">{vehicle.year}</TableCell>
                                     <TableCell align="right">{vehicle.consumption}</TableCell>
                                     <TableCell align="center">
-                                        <Button variant="contained" color="success" href={"/vehicles/" + vehicle.vehicleId}>View</Button>{" "}
+                                        <Button variant="contained" color="primary" href={"/vehicles/" + vehicle.vehicleId}>View</Button>{" "}
                                         <Button variant="contained" color="error" onClick={() => this.remove(vehicle.vehicleId)}>Delete</Button>
                                     </TableCell>
                                 </TableRow>

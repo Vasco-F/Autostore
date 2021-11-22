@@ -3,6 +3,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,17 +23,21 @@ public class Vehicle {
 	private float consumption;
 
 	private String image;
+
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User owner;
 	
 	public Vehicle(){}
 
-	public Vehicle(String manufacturer, String model, short year, float consumption) {
+	public Vehicle(String manufacturer, String model, short year, float consumption, User user) {
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.year = year;
 		this.consumption = consumption;
 	}
 
-	public Vehicle(String manufacturer, String model, short year, float consumption, String path) {
+	public Vehicle(String manufacturer, String model, short year, float consumption, String path, User user) {
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.year = year;
@@ -85,5 +91,13 @@ public class Vehicle {
 
 	public void setImage(String path){
 		this.image = path;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

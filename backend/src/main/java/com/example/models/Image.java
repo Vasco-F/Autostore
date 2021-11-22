@@ -1,3 +1,4 @@
+package com.example.models;
 // package com.example.models;
 
 // import javax.persistence.CascadeType;

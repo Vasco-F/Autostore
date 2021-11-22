@@ -21,7 +21,7 @@ services:
         ports:
             - "8081:8080"
         networks:
-            - uphill-net
+            - autostore-net
         depends_on:
             - mysql-storage
         links:
@@ -30,15 +30,13 @@ services:
     mysql-storage:
         image: mysql:5.7.35
         networks:
-            - uphill-net
+            - autostore-net
         environment:
             - MYSQL_USER=backend
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_PASSWORD=admin
-            - MYSQL_DATABASE=uphill
-        volumes:
-            - "./database/startup.sql:/docker-entrypoint-initdb.d/init.sql"
+            - MYSQL_DATABASE=autostore
         
 networks:
-    uphill-net:
+    autostore-net:
         driver: bridge
