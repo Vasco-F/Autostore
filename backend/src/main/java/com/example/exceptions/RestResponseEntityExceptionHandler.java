@@ -22,4 +22,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         String bodyOfResponse = err.getMessage();
         return handleExceptionInternal(err, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, req);
     }
+
+    @ExceptionHandler(value = {InvalidVehicleRegistration.class})
+    protected ResponseEntity<Object> handleServerErrorConflict(RuntimeException err, WebRequest req){
+        String bodyOfResponse = err.getMessage();
+        return handleExceptionInternal(err, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, req);
+    }
 }

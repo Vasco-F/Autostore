@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.dtos.RoadtripDTO;
 import com.example.dtos.VehicleDTO;
+import com.example.repositories.FileSystemRepository;
 import com.example.services.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class VehiclesController {
-	
+
 	@Autowired
 	private VehicleService service;
 	
@@ -43,9 +45,9 @@ public class VehiclesController {
 	}
 	
 	@PostMapping("/vehicles")
-	public Long insertVehicle(@RequestBody VehicleDTO vehicle) {
+	public Long insertVehicle(@RequestBody VehicleDTO vehicle, @RequestBody MultipartFile file) throws IOException {
 		
-		return service.insert(vehicle);
+		return service.insert(vehicle, file);
 	}
 	
 	@PutMapping("/vehicles/{id}")
